@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOX-STREAM</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #4caf50;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px #2e7d32;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #388e3c;
+        }
+
+        button:active {
+            box-shadow: 0 2px #1b5e20;
+            transform: translateY(2px);
+        }
+
+        .video-container {
+            max-width: 100%; /* Adjust the width to fit your design */
+            margin: 20px auto; /* Center the video player horizontally */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            display: none; /* Initially hidden */
+        }
+        
+        video {
+            width: 100%; /* Full width of the container */
+            height: auto; /* Height is set automatically to maintain aspect ratio */
+            max-height: 80vh; /* Optional: set a max-height to ensure it fits within the viewport */
+            border-radius: 5px;
+        }        
+
+        /* Other styles remain the same */
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>BOX-STREAM</h1>
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="urlInput" placeholder="Enter URL here">
+        <button id="fetchButton">Fetch Video Link</button>
+    </div>
+
+    <div class="video-container" id="videoContainer">
+        <video controls id="videoPlayer">
+            <source src="" type="video/mp4">Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <button id="playButton" style="display: none;">Play Video</button>
+    <button id="downloadButton" style="display: none;">Download Video</button>
+    <script>
+        document.getElementById('fetchButton').addEventListener('click', async () => {
+            const urlInput = document.getElementById('urlInput').value;
+            if (!urlInput) {
+                alert('Please enter a URL.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://boxstream.thejuniortest.workers.dev/?url=${encodeURIComponent(urlInput)}`);
+                const data = await response.json();
+
+                if (data.ok && data.downloadLink) {
+                    const videoContainer = document.getElementById('videoContainer');
+                    const videoPlayer = document.getElementById('videoPlayer');
+                    const playButton = document.getElementById('playButton');
+                    const downloadButton = document.getElementById('downloadButton');
+
+                    videoPlayer.src = data.downloadLink;
+                    videoContainer.style.display = 'none'; // Keep the video container hidden until "Play" is clicked
+            
+                    // Get the video's metadata to adjust container size
+                    videoPlayer.onloadedmetadata = function() {
+                        const aspectRatio = videoPlayer.videoWidth / videoPlayer.videoHeight;
+                        const maxWidth = window.innerWidth * 0.9; // Set a maximum width for the container
+                        const maxHeight = window.innerHeight * 0.8; // Set a maximum height for the container
+
+                        let width = maxWidth;
+                        let height = maxWidth / aspectRatio;
+
+                        // Check if the calculated height exceeds the maximum height
+                        if (height > maxHeight) {
+                            height = maxHeight;
+                            width = maxHeight * aspectRatio;
+                        }
+
+                        // Apply the calculated width and height to the video container
+                        videoContainer.style.width = `${width}px`;
+                        videoContainer.style.height = `${height}px`;
+                    };
+
+                    playButton.style.display = 'inline'; // Show the "Play" button
+                    downloadButton.style.display = 'inline'; // Show the "Download" button
+                } else {
+                    alert('Failed to fetch video link.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error fetching video link.');
+            }
+        });
+
+        document.getElementById('playButton').addEventListener('click', () => {
+            const videoContainer = document.getElementById('videoContainer');
+            videoContainer.style.display = 'block'; // Show the video container
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.load();
+            videoPlayer.play();
+        });        
+
+        document.getElementById('downloadButton').addEventListener('click', () => {
+            const videoPlayer = document.getElementById('videoPlayer');
+            window.open(videoPlayer.src, '_blank'); // Open the video URL in a new tab to start the download
+        });
+    </script>
+</body>
+</html>
