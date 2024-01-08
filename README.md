@@ -2,7 +2,7 @@
 
 **Description:**
 
-Box-Stream is a simple web application that allows users to fetch and stream videos from "https://www.terabox.com/" URLs. With a clean and user-friendly interface, it provides an easy way to watch videos directly from this specific source.
+Box-Stream is a simple web application that allows users to fetch and stream videos from "https://www.terabox.com/" URLs without downloading the application. With a clean and user-friendly interface, it provides an easy way to watch videos directly from this specific source.
 
 **Key Features:**
 
