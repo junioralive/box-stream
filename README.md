@@ -11,3 +11,6 @@ Box-Stream is a simple web application that allows users to fetch and stream vid
 - Backend Service: The application uses the [BoxStream backend service](https://boxstream.thejuniortest.workers.dev) to fetch video links from "https://www.terabox.com/".
 
 Box-Stream is built using HTML, CSS, and JavaScript, making it easy to host and use for streaming videos exclusively from "https://www.terabox.com/".
+
+**Contact:**
+Discord: junioralive
