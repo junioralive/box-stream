@@ -90,6 +90,20 @@
             transform: translateY(2px);
         }
 
+        .buttons button.open-in-player {
+            background-color: #ff5722;
+            box-shadow: 0 4px #d84315;
+        }
+
+        .buttons button.open-in-player:hover {
+            background-color: #ff7043;
+        }
+
+        .buttons button.open-in-player:active {
+            box-shadow: 0 2px #d84315;
+            transform: translateY(2px);
+        }
+
         .server-buttons {
             display: none;
             justify-content: center;
@@ -232,6 +246,7 @@
         <div class="buttons">
             <button id="fetchButton">Fetch Video Link</button>
             <button id="downloadButton" style="display: none;">Download Video</button>
+            <button id="openInPlayerButton" class="open-in-player" style="display: none;">Open in Local Player</button>
         </div>
         <div class="server-buttons" id="serverButtons">
             <button id="server1Button" class="active-server">Server 1</button>
@@ -266,10 +281,12 @@
             const thumbnailContainer = document.getElementById('thumbnailContainer');
             const videoContainer = document.getElementById('videoContainer');
             const serverButtons = document.getElementById('serverButtons');
+            const openInPlayerButton = document.getElementById('openInPlayerButton');
 
             thumbnailContainer.style.display = 'none';
             videoContainer.style.display = 'none';
             serverButtons.style.display = 'none';
+            openInPlayerButton.style.display = 'none';
 
             videoPlayer.src = '';
             thumbnail.src = '';
@@ -298,6 +315,7 @@
                     thumbnailContainer.style.display = 'block';
 
                     downloadButton.style.display = 'inline-block';
+                    openInPlayerButton.style.display = 'inline-block';
                     serverButtons.style.display = 'flex';
 
                     thumbnailContainer.onclick = () => {
@@ -334,6 +352,20 @@
             videoPlayer.load();
             videoPlayer.play();
             highlightActiveServer('server2');
+        });
+
+        document.getElementById('openInPlayerButton').addEventListener('click', () => {
+            if (currentStream) {
+                const blob = new Blob([`#EXTM3U\n#EXTINF:-1,Stream\n${currentStream}`], { type: 'application/vnd.apple.mpegurl' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'stream.m3u8';
+                a.click();
+                URL.revokeObjectURL(url);
+            } else {
+                alert('No stream available.');
+            }
         });
 
         function highlightActiveServer(server) {
