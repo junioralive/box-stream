@@ -1,16 +1,25 @@
-**[Box-Stream](https://junioralive.github.io/box-stream/)**
+# **🚀 Box-Stream**
 
-**Description:**
+## **📝 Description:**
 
-Box-Stream is a simple web application that allows users to fetch and stream videos from "https://www.terabox.com/" URLs without downloading the application. With a clean and user-friendly interface, it provides an easy way to watch videos directly from this specific source.
+Box-Stream is a simple and easy-to-use web application that lets you stream videos directly from [TeraBox](https://www.terabox.com/) without needing to download any additional applications. With its clean and user-friendly interface, you can enjoy your videos with just a few clicks. 🎥✨
 
-**Key Features:**
+## **🛠️ How to Use:**
 
-- Fetch Video Link: Enter the URL of a video from "https://www.terabox.com/" and click the "Fetch Video Link" button to load and stream the video.
-- Play and Download: Once the video link is fetched, you can play the video instantly or download it for offline viewing.
-- Backend Service: The application uses the [BoxStream backend service](https://boxstream.thejuniortest.workers.dev) to fetch video links from "https://www.terabox.com/".
+1. **🎯 Fetch Video Link:** Enter the URL of a video from [TeraBox](https://www.terabox.com/) into the input field and click the "Fetch Video Link" button.
+2. **▶️ Play Video:** After fetching the video link, click the "Play" button to start streaming the video directly within the web application.
+3. **⬇️ Download Video:** If you want to keep the video for offline viewing, click the "Download Video" button after fetching the link.
 
-Box-Stream is built using HTML, CSS, and JavaScript, making it easy to host and use for streaming videos exclusively from "https://www.terabox.com/".
+## **🌟 Support the Project:**
 
-**Contact:**
-Discord: junioralive
+If you like this project, please consider giving it a ⭐ on GitHub! Your support helps keep the project going and growing. 🙌
+
+## **🔧 Fork the Project:**
+
+Feel free to fork this repository and create your own version of Box-Stream! Customize it to suit your needs and host it on your own platform. It's an excellent way to learn and expand your skills. 💡🚀
+
+## **📞 Contact:**
+
+[![Discord Server](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/cwDTVKyKJz)
+[![GitHub Project](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/junioralive/spycli)
+[![Email](https://img.shields.io/badge/Email-D44638?style=for-the-badge&logo=gmail&logoColor=white)](mailto:support@junioralive.in)
