@@ -90,6 +90,30 @@
             transform: translateY(2px);
         }
 
+        .server-buttons {
+            display: none;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .server-buttons button {
+            padding: 6px 12px;
+            font-size: 0.9em;
+            border-radius: 15px;
+            background-color: #ffffff;
+            color: #000000;
+            border: 2px solid #ccc;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .server-buttons button.active-server {
+            background-color: #34c759 !important;
+            color: #ffffff;
+            border: 2px solid #34c759;
+        }
+
         .video-container, .thumbnail-container {
             position: relative;
             width: 100%;
@@ -185,6 +209,11 @@
                 font-size: 0.9em;
                 padding: 8px;
             }
+
+            .server-buttons button {
+                font-size: 0.8em;
+                padding: 5px 10px;
+            }
         }
     </style>
 </head>
@@ -203,7 +232,10 @@
         <div class="buttons">
             <button id="fetchButton">Fetch Video Link</button>
             <button id="downloadButton" style="display: none;">Download Video</button>
-            <button id="switchButton" style="display: none;">Switch Server</button>
+        </div>
+        <div class="server-buttons" id="serverButtons">
+            <button id="server1Button" class="active-server">Server 1</button>
+            <button id="server2Button">Server 2</button>
         </div>
     </div>
 
@@ -223,63 +255,56 @@
     <script>
         let currentStream = '';
         let alternateStream = '';
-        
+
         document.getElementById('fetchButton').addEventListener('click', async () => {
             const videoPlayer = document.getElementById('videoPlayer');
             const thumbnail = document.getElementById('thumbnail');
             const title = document.getElementById('title');
             const downloadButton = document.getElementById('downloadButton');
+            const server1Button = document.getElementById('server1Button');
+            const server2Button = document.getElementById('server2Button');
             const thumbnailContainer = document.getElementById('thumbnailContainer');
             const videoContainer = document.getElementById('videoContainer');
-        
+            const serverButtons = document.getElementById('serverButtons');
+
             thumbnailContainer.style.display = 'none';
             videoContainer.style.display = 'none';
-        
+            serverButtons.style.display = 'none';
+
             videoPlayer.src = '';
             thumbnail.src = '';
             title.textContent = '';
-        
+
             const urlInput = document.getElementById('urlInput').value;
             if (!urlInput) {
                 alert('Please enter a URL.');
                 return;
             }
-        
+
             try {
                 const response = await fetch(`https://terraboxplayer.thejuniortest.workers.dev/?url=${encodeURIComponent(urlInput)}`);
                 const data = await response.json();
-        
+
                 if (data.status === "success" && data.stream) {
                     currentStream = data.stream;
                     alternateStream = data.altstream;
-        
+
                     videoPlayer.src = currentStream;
-        
+
                     title.textContent = data.title;
                     title.style.display = 'block';
-        
+
                     thumbnail.src = data.thumbnail;
                     thumbnailContainer.style.display = 'block';
-        
+
                     downloadButton.style.display = 'inline-block';
-        
+                    serverButtons.style.display = 'flex';
+
                     thumbnailContainer.onclick = () => {
                         thumbnailContainer.style.display = 'none';
                         videoContainer.style.display = 'block';
                         videoPlayer.load();
                         videoPlayer.play();
-                    };
-        
-                    // Add an event listener to check if the video fails to load
-                    videoPlayer.onerror = () => {
-                        if (videoPlayer.src !== alternateStream) {
-                            console.warn('Primary stream failed, switching to alternate stream.');
-                            videoPlayer.src = alternateStream;
-                            videoPlayer.load();
-                            videoPlayer.play();
-                        } else {
-                            alert('Both streams failed to load.');
-                        }
                     };
                 } else {
                     alert('Failed to fetch video link.');
@@ -289,11 +314,41 @@
                 alert('Error fetching video link.');
             }
         });
-        
+
         document.getElementById('downloadButton').addEventListener('click', () => {
             const videoPlayer = document.getElementById('videoPlayer');
             window.open(videoPlayer.src, '_blank');
-        });        
+        });
+
+        document.getElementById('server1Button').addEventListener('click', () => {
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.src = currentStream;
+            videoPlayer.load();
+            videoPlayer.play();
+            highlightActiveServer('server1');
+        });
+
+        document.getElementById('server2Button').addEventListener('click', () => {
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.src = alternateStream;
+            videoPlayer.load();
+            videoPlayer.play();
+            highlightActiveServer('server2');
+        });
+
+        function highlightActiveServer(server) {
+            const server1Button = document.getElementById('server1Button');
+            const server2Button = document.getElementById('server2Button');
+
+            server1Button.classList.remove('active-server');
+            server2Button.classList.remove('active-server');
+
+            if (server === 'server1') {
+                server1Button.classList.add('active-server');
+            } else if (server === 'server2') {
+                server2Button.classList.add('active-server');
+            }
+        }
     </script>
 </body>
 </html>
