@@ -1,5 +1,13 @@
 # **🚀 Box-Stream**
 
+## API Status 📈
+
+Below is the current status of the TERRABOX-API, indicating its availability:
+
+| Name        | Status   | Last Updated |
+| :---------- | :------- | :----------- |
+| TERRABOX-API  | 🟢 | 2024-08-12 21:23:46 |
+
 ## **📝 Description:**
 
 Box-Stream is a simple and easy-to-use web application that lets you stream videos directly from [TeraBox](https://www.terabox.com/) without needing to download any additional applications. With its clean and user-friendly interface, you can enjoy your videos with just a few clicks. 🎥✨
