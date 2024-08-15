@@ -6,7 +6,7 @@ Below is the current status of the TERRABOX-API, indicating its availability:
 
 | Name        | Status   | Last Updated |
 | :---------- | :------- | :----------- |
-| TERRABOX-API  | 🟢 | 2024-08-15 06:12:57 |
+| TERRABOX-API  | 🟢 | 2024-08-15 05:09:48 |
 
 ## **📝 Description:**
 
@@ -50,7 +50,7 @@ Box-Stream is a simple and easy-to-use web application that lets you stream vide
    - Click on BOX-STREAM SHORTCUT on your iOS device.
    - The Shortcut will automatically open VLC and start streaming the video. (pre-requisites : [VLC MEDIA PLAYER](https://apps.apple.com/us/app/vlc-media-player/id650377962))
   
-  [![BOX STREAM SHORTCUT](https://img.shields.io/badge/ADD_SHORTCUTS-8a2be2?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/junioralive/box-stream/releases/download/1.0.0/index.html)
+  [![BOX STREAM SHORTCUT](https://img.shields.io/badge/ADD_SHORTCUTS-8a2be2?style=for-the-badge&logo=apple&logoColor=white)](https://www.icloud.com/shortcuts/9adefd0ba95c45d99485a44709e1b8cc)
 
 
    #### **Linux:**
