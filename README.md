@@ -6,7 +6,7 @@ Below is the current status of the TERRABOX-API, indicating its availability:
 
 | Name        | Status   | Last Updated |
 | :---------- | :------- | :----------- |
-| TERRABOX-API  | 🔴 | 2024-12-11 20:11:54 |
+| TERRABOX-API  | 🔴 | 2024-12-11 21:09:33 |
 
 ## **📝 Description:**
 
