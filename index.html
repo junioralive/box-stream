@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOX-STREAM</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding-top: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #1DB954;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 400px;
+            padding: 0 20px;
+        }
+
+        .input-group input[type="text"] {
+            padding: 10px;
+            border-radius: 20px;
+            border: 2px solid #1DB954;
+            background-color: #1c1c1c;
+            color: #fff;
+            width: 100%;
+            font-size: 1em;
+            margin-bottom: 15px;
+            text-align: center;
+            transition: border 0.3s ease;
+        }
+
+        .input-group input[type="text"]:focus {
+            border-color: #3cba63;
+            outline: none;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .buttons button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background-color: #1DB954;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 4px #15883e;
+            transition: all 0.3s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #1ed760;
+        }
+
+        .buttons button:active {
+            box-shadow: 0 2px #15883e;
+            transform: translateY(2px);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background-color: #1c1c1c;
+            padding: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            display: none;
+        }
+
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            iframe {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>BOX-STREAM</h1>
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="urlInput" placeholder="Enter Video URL Here">
+        <div class="buttons">
+            <button id="embedButton">Embed Video</button>
+        </div>
+    </div>
+
+    <div class="video-container" id="videoContainer">
+        <iframe id="videoFrame" src="" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        document.getElementById('embedButton').addEventListener('click', () => {
+            const urlInput = document.getElementById('urlInput').value;
+            const videoContainer = document.getElementById('videoContainer');
+            const videoFrame = document.getElementById('videoFrame');
+
+            if (!urlInput) {
+                alert('Please enter a URL.');
+                return;
+            }
+
+            // Extract the video ID from the input URL and remove the first character
+            const match = urlInput.match(/s\/(\w+)/);
+            if (match && match[1]) {
+                const videoId = match[1].substring(1); // Remove the first character
+                const embedUrl = `https://www.1024terabox.com/sharing/embed?surl=${videoId}`;
+
+                // Set the iframe source and display the video container
+                videoFrame.src = embedUrl;
+                videoContainer.style.display = 'block';
+            } else {
+                alert('Invalid Terabox URL. Please enter a valid URL.');
+            }
+        });
+    </script>
+</body>
+</html>
